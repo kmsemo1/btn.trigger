@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Button Trigger AJAx</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <button data-search="yeezy">Kanye West</button>
+    <button data-search="snoop lion">Snoop Dogg</button>
+    <div id="gifArea"></div>
+
+
+    <script type="text/javascript">
+        $('button').on("click", function () {
+            var x = $(this).data("search");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=FPxGLykzBbYbzrm7x73HzkYy6CjzwY0N";
+
+            $.ajax({
+                url: queryURL,
+                method: 'GET'
+            }).done(function (res) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#gifArea').prepend("<p>Rating: " + res.data[i].rating + "</p>");
+                    $('#gifArea').prepend("<img src='" + res.data[i].images.downsized.url + "'>");
+                }
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>
